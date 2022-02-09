@@ -18,7 +18,7 @@ program
 const options = program.opts();
 
 // CONSTANTS
-const BUILD_DIR = "dist/app"
+const BUILD_DIR = "docs/app"
 const STATIC_DIR = "public"
 
 /**
@@ -99,7 +99,7 @@ const myConfigs = [
     // MAIN BUNDLE CONFIG -----------------------
     {
         entryPoints: ["./src/main.ts"],
-        // outdir: "./dist/app", // either "outfile" or "outdir". not both!
+        // outdir: "./docs/app", // either "outfile" or "outdir". not both!
         // splitting: true, // if you want code splitting choose "outdir"
         outfile: `./${BUILD_DIR}/bundle.js`,
     },
