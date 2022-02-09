@@ -39,6 +39,7 @@
 			"clients servers workers";
 		gap: 10px;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
+		padding: 0 20px;
 	}
 
 	.title {
@@ -49,7 +50,9 @@
 		text-align: center;
 		color: white;
 		background-color: crimson;
-		padding: 20px;
+		padding: 20px 0;
+		border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 	}
 
 	.parite {
