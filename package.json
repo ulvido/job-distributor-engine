@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm run clean && node tools/esbuild.js --debug --servedir dist/app --port 5000",
+    "dev": "npm run clean && node tools/esbuild.js --debug --servedir docs --port 5000",
     "build": "npm run clean && node tools/esbuild.js",
-    "serve": "esbuild --servedir=dist/app",
-    "clean": "rimraf dist/app/*",
+    "serve": "esbuild --servedir=docs",
+    "clean": "rimraf docs/*",
     "update": "npm outdated",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
