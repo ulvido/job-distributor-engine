@@ -144,9 +144,9 @@
   .wrapper {
     display: flex;
     flex-direction: column;
-    padding: 10px 4px;
+    padding: 10px 4px 40px;
     overflow: hidden auto;
-    max-height: 80vh;
+    max-height: 65vh;
   }
 
   .add-user {
