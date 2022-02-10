@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, Subject } from "rxjs";
 // OBJECTS { id: observable }
 let users = {}
 let alarms = {}
-let conditions = {}
+let jobs = {} // bunu obj değil de stream yapabilirsen daha iyi olur.
 
 type ElementName = "GOLD" | "SILVER" | "PLATIN" | "IRON" | "COPPER";
 
@@ -36,18 +36,23 @@ export const alarmCreated = ({ userId, alarmId }: AlarmCreatedParams) => {
 
 export const conditionCreated =
   ({ userId, alarmId, conditionId, condition }:
-    ConditionCreatedParams) => {
-    alarms[alarmId] = {
-      userId,
-      alarmId,
-      conditions: {
-        [conditionId]: condition
-      },
-    };
+    ConditionCreatedParams) => new Promise((resolve, reject) => {
+      try {
+        let key = JSON.stringify(condition);
+        if (jobs.hasOwnProperty(key)) {
+          resolve(jobs[key]);
+        } else {
+          jobs[key] = new Subject;
+          resolve(jobs[key]);
+        }
+      } catch (error) {
+        reject(error);
+      }
 
-    // create new condition observable and subscribe to it.
+      // create new condition observable and subscribe to it.
 
-  };
+    });
+
 
 export const alarmObservable = () =>
   new Observable(subscriber => {
