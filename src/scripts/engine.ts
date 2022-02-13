@@ -3,18 +3,22 @@ import { Observable, BehaviorSubject, Subject } from "rxjs";
 // OBJECTS { id: observable }
 let users = {}
 let alarms = {}
+let conditions = {}
 let jobs = {} // bunu obj değil de stream yapabilirsen daha iyi olur.
+
+/**
+ *    --  TYPES  --
+ */
 
 type ElementName = "GOLD" | "SILVER" | "PLATIN" | "IRON" | "COPPER";
 
-type Operator = "LESS" | "EQUAL" | "GREATOR"
+type Comperator = "LESS" | "EQUAL" | "GREATOR"
 
 type Condition = {
   element: ElementName,
-  operator: Operator,
+  comperator: Comperator,
   price: number,
 }
-
 
 interface AlarmCreatedParams {
   userId: string,
@@ -26,15 +30,36 @@ interface ConditionCreatedParams extends AlarmCreatedParams {
   condition: Condition,
 }
 
+/**
+ *    --  EXPORTED FUNCTIONS  --
+ */
+
 export const alarmCreated = ({ userId, alarmId }: AlarmCreatedParams) => {
   alarms[alarmId] = {
     userId,
     alarmId,
-    conditions: {},
   };
 };
 
 export const conditionCreated =
+  ({ userId, alarmId, conditionId, condition }:
+    ConditionCreatedParams) => {
+    conditions[conditionId] = {
+      userId,
+      alarmId,
+      conditions: [
+        ...conditions[conditionId].conditions,
+        condition,
+      ],
+    };
+  };
+
+/**
+ *   --  OPERATORS  --
+ */
+
+// save to redisJSON (async action)
+const saveConditionToCache =
   ({ userId, alarmId, conditionId, condition }:
     ConditionCreatedParams) => new Promise((resolve, reject) => {
       try {
@@ -48,10 +73,8 @@ export const conditionCreated =
       } catch (error) {
         reject(error);
       }
-
-      // create new condition observable and subscribe to it.
-
     });
+
 
 
 export const alarmObservable = () =>

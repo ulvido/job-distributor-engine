@@ -1,6 +1,6 @@
 <script lang="ts">
   // STORE
-  import { users, metaller, operators } from "../store";
+  import { users, metaller, comperators } from "../store";
   // TRANSITION
   import { scale } from "svelte/transition";
   import { expoOut } from "svelte/easing";
@@ -17,7 +17,7 @@
     >
       <div class="title sky">
         <div class="text">{user.name}</div>
-        <div class="grey-id">{user.id}</div>
+        <div class="user-id grey-id">{user.id}</div>
         <div class="delete">
           <input
             type="button"
@@ -37,7 +37,7 @@
             <div class="alarm">
               <div class="title">
                 <div class="text">{alarm.name}</div>
-                <div class="grey-id">{alarm.id}</div>
+                <div class="alarm-id grey-id">{alarm.id}</div>
                 <div class="delete">
                   <input
                     type="button"
@@ -55,12 +55,12 @@
                 <div class="conditions">
                   {#each Object.keys(alarm.conditions) as id (id)}
                     <div class="condition">
-                      <div class="grey-id">{id}</div>
+                      <div class="condition-id grey-id">{id}</div>
                       <div class="condition-name">
                         {alarm.conditions[id].element}
                       </div>
-                      <div class="condition-operator">
-                        {alarm.conditions[id].operator}
+                      <div class="condition-comperator">
+                        {alarm.conditions[id].comperator}
                       </div>
                       <div class="condition-price">
                         {alarm.conditions[id].price}
@@ -75,7 +75,7 @@
                             conditionId: id,
                           })}
                       >
-                        X
+                        x
                       </div>
                     </div>
                   {/each}
@@ -88,7 +88,7 @@
                       cancel: "CANCEL",
                     }}
                     elements={$metaller.map((metal) => metal.name)}
-                    operators={$operators}
+                    comperators={$comperators}
                     on:confirmClicked={(e) => {
                       // console.log(e.detail.condition);
                       // @ts-expect-error: addCondition yok diyor ama var. önemsiz
@@ -191,6 +191,10 @@
   .grey-id {
     font-size: 10px;
     color: grey;
+  }
+
+  .user-id,
+  .alarm-id {
     padding-right: 20px;
   }
 
@@ -232,17 +236,36 @@
 
   .condition {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 40px repeat(3, 1fr) 20px;
     align-items: center;
     gap: 8px;
   }
 
   .condition:hover {
-    background: aliceblue;
+    background: white;
+  }
+
+  .condition-id,
+  .condition-price {
+    font-family: monospace;
+  }
+
+  .condition-price {
+    text-align: right;
+    padding-right: 10px;
   }
 
   .delete {
+    text-align: center;
+    padding: 0 1px 2px;
     cursor: pointer;
+  }
+
+  .delete:hover {
+    background: crimson;
+    color: white;
+    font-weight: 700;
+    border-radius: 2px;
   }
 
   .sky {

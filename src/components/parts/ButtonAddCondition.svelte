@@ -10,10 +10,10 @@
 
   export let text: Text;
   export let elements: string[];
-  export let operators: string[];
+  export let comperators: string[];
 
   let selectMetalRef;
-  let selectOperatorRef;
+  let selectComperatorRef;
   let selectPriceRef;
   let isAdding: boolean = false;
 
@@ -25,13 +25,13 @@
   const handleConfirmClick = () => {
     if (
       selectMetalRef.value ??
-      selectOperatorRef.value ??
+      selectComperatorRef.value ??
       parseInt(selectPriceRef.value)
     ) {
       dispatch("confirmClicked", {
         condition: {
           element: selectMetalRef.value,
-          operator: selectOperatorRef.value,
+          comperator: selectComperatorRef.value,
           price: parseInt(selectPriceRef.value),
         },
       });
@@ -55,14 +55,16 @@
 </script>
 
 {#if isAdding}
+  <!-- GOLD | SILVER | PLATIN | IRON | COPPER -->
   <select bind:this={selectMetalRef}>
     {#each elements as element (element)}
       <option value={element}>{element}</option>
     {/each}
   </select>
-  <select bind:this={selectOperatorRef}>
-    {#each operators as opt (opt)}
-      <option value={opt}>{opt}</option>
+  <!-- LESS | EQUAL | GREATER -->
+  <select bind:this={selectComperatorRef}>
+    {#each comperators as cmp (cmp)}
+      <option value={cmp}>{cmp}</option>
     {/each}
   </select>
   <input

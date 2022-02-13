@@ -62,15 +62,15 @@ type Conditions = {
   [id: string]: Condition,
 }
 
-type Operator = "LESS" | "EQUAL" | "GREATOR"
+type Comperator = "LESS" | "EQUAL" | "GREATOR"
 
 type Condition = {
   element: ElementName,
-  operator: Operator,
+  comperator: Comperator,
   price: number,
 }
 
-export const operators: Writable<Operator[]> = writable(["LESS", "EQUAL", "GREATOR"])
+export const comperators: Writable<Comperator[]> = writable(["LESS", "EQUAL", "GREATOR"])
 
 const createUsers = (initial) => {
 
